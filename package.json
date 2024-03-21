@@ -34,10 +34,10 @@
         "typescript": "^5"
     },
     "lint-staged": {
-        "src/**/*.{ts,vue}": [
+        "src/**/*.{ts}": [
             "eslint"
         ],
-        "test/**/*.{ts,tsx,js,vue}": [
+        "test/**/*.{ts,tsx,js}": [
             "eslint"
         ]
     }
