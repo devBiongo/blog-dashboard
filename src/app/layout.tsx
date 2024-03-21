@@ -1,11 +1,11 @@
 /** @format */
 
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Noto_Sans_SC } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 
-const inter = Inter({ subsets: ['latin'] });
+const font = Noto_Sans_SC({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'Blog Dashboard',
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={cn('dark:bg-[#313338]', inter.className, 'bg-[#f5f5f5]')}>{children}</body>
+            <body className={cn('dark:bg-[#313338]', font.className, 'bg-[#f5f5f5]')}>{children}</body>
         </html>
     );
 }
