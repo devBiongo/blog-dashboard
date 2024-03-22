@@ -8,6 +8,6 @@ module.exports = {
     singleQuote: true, // 使用单引号
     jsxSingleQuote: true, // jsx中使用单引号
     trailingComma: 'all', // 多行时尽可能打印尾随逗号
-    insertPragma: true, // 在已被prettier格式化的文件顶部加上标注
+    insertPragma: false, // 在已被prettier格式化的文件顶部加上标注
     endOfLine: 'lf', // 保持各平台换行符统一为lf
 };
