@@ -52,7 +52,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenuDemo() {
     return (
-        <NavigationMenu>
+        <NavigationMenu className='max-md:hidden'>
             <NavigationMenuList>
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>

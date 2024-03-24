@@ -3,6 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('highlight.js/styles/dark.css');
 
 html,
 body,

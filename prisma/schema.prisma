@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String    @id @default(uuid())
+  userIp               String    @map("user_ip") // 用户IP
+  username             String    @map("user_name") // 用户名
+  password             String    @map("user_password") // 用户密码
+  userEmail            String    @map("user_email") // 用户邮箱
+  userProfilePhoto     String    @map("user_profile_photo") // 用户头像
+  userRegistrationTime DateTime? @map("user_registration_time") // 注册时间
+  userBirthday         DateTime? @map("user_birthday") // 用户生日
+  userAge              Int?      @map("user_age") // 用户年龄
+  userTelephoneNumber  Int       @map("user_telephone_number") // 用户手机号
+  userNickname         String    @map("user_nickname") // 用户昵称
+  Articles             Article[]
+  Comments             Comment[]
+
+  @@map("sys_user")
+}
+
+model Article {
+  id                  String     @id @default(uuid())
+  userId              String     @map("user_id") // 发表用户ID
+  articleTitle        String     @map("article_title") // 博文标题
+  articleContent      String     @map("article_content") // 博文内容
+  articleViews        Int        @map("article_views") // 浏览量
+  articleCommentCount Int        @map("article_comment_count") // 评论总数
+  articleDate         DateTime   @default(now()) @map("article_date") // 发表时间
+  articleLikeCount    Int        @map("article_like_count") // 点赞次数
+  User                User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Comments            Comment[]
+  Labels              Label[]
+  Categories          Category[]
+
+  @@map("article")
+}
+
+model Comment {
+  id               String   @id @default(uuid())
+  userId           String   @map("user_id") // 发表用户ID
+  articleId        String   @map("article_id") // 评论博文ID
+  commentLikeCount Int      @map("comment_like_count") // 点赞数
+  commentDate      DateTime @default(now()) @map("comment_date") // 评论日期
+  commentContent   String   @map("comment_content") // 评论内容
+  parentCommentId  Int      @map("parent_comment_id") // 父评论ID
+  User             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Article          Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@map("comment")
+}
+
+model Label {
+  id               String    @id @default(uuid())
+  labelName        String    @map("label_name") // 标签名称
+  labelAlias       String    @map("label_alias") // 标签别名
+  labelDescription String    @map("label_description") // 标签描述
+  Articles         Article[]
+
+  @@map("label")
+}
+
+model Category {
+  id                  String    @id @default(uuid()) // 分类ID
+  categoryName        String    @map("category_name") // 分类名称
+  categoryAlias       String    @map("category_alias") // 分类别名
+  categoryDescription String    @map("category_description") // 分类描述
+  categoryParentId    Int       @map("category_parent_id") // 父分类ID
+  Articles            Article[]
+
+  @@map("category")
+}
+
+// model UserFriend {
+//   id              String @id @default(uuid()) // 标识ID
+//   user_id         String // 用户ID
+//   user_friends_id String // 好友ID
+//   user_note       String // 好友备注
+//   user_status     String // 好友状态
+//   User            User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+// }
