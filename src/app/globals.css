@@ -3,7 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('highlight.js/styles/dark.css');
+@import url('highlight.js/styles/atom-one-dark.css');
 
 html,
 body,
@@ -83,4 +83,41 @@ body,
     body {
         @apply bg-background text-foreground;
     }
+}
+
+pre.hljs {
+    padding: 12px 2px 12px 40px;
+    border-radius: 5px;
+    position: relative;
+    font-size: 16px;
+    line-height: 22px;
+    overflow: hidden;
+}
+
+.line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 12px;
+    bottom: 12px;
+    left: 0;
+    font-size: 100%;
+    width: 40px;
+    text-align: center;
+    letter-spacing: -1px;
+    border-right: 1px solid #cbcaca;
+    user-select: none;
+    counter-reset: linenumber;
+}
+
+.line-numbers-rows span {
+    pointer-events: none;
+    display: block;
+    counter-increment: linenumber;
+}
+
+.line-numbers-rows span:before {
+    content: counter(linenumber);
+    color: #999;
+    display: block;
+    text-align: center;
 }
