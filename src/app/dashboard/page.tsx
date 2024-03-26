@@ -17,8 +17,11 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from '@/components/ui/pagination';
+import { IoBookOutline } from 'react-icons/io5';
+import Link from 'next/link';
 
 export default function Page() {
+    const arr = ['数据库', '操作系统', '前端', '后端', 'python', '编程语言', '网络安全', 'mdx', '默认分类'];
     return (
         <div className='flex w-full gap-x-5'>
             {/* -------------------------------------------左边区域------------------------------------------- */}
@@ -28,22 +31,8 @@ export default function Page() {
                     <CarouselDemo />
                 </div>
                 {/* 导航栏 */}
-                <div className='h-[50px] bg-white rounded shadow flex justify-between px-2 py-1'>
-                    <ul className='flex gap-5 h-full py-1'>
-                        {['数据库', '操作系统', '数据库', '操作系统'].map((item: string, index: number) => (
-                            <li
-                                className={cn(
-                                    'h-full hover:bg-[#425aef] hover:text-white px-2 rounded',
-                                    index === 0 && 'bg-[#425aef] text-white',
-                                )}
-                                key={index}
-                            >
-                                <a href='#' className='h-full flex justify-center items-center'>
-                                    {item}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
+                <div className=' shadow bg-white flex items-center p-2 rounded'>
+                    <Tags />
                 </div>
                 {/* 卡片区 */}
                 <div className='grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 sm:gap-4 gap-2 w-full'>
@@ -74,7 +63,7 @@ export default function Page() {
                     </div>
                     <ul className=' w-full flex flex-col gap-1'>
                         {arr.map((item: string, index: number) => (
-                            <li key={index} className=' hover:bg-[#ebebec] py-2 px-1 rounded'>
+                            <li key={index} className=' hover:bg-slate-200 py-2 px-3 rounded transition'>
                                 <a href=''>{item}</a>
                             </li>
                         ))}
@@ -116,6 +105,39 @@ export default function Page() {
     );
 }
 
+function Tags() {
+    const tags = [
+        'All',
+        'Next.js',
+        'React.js',
+        'MySQL',
+        'MongoDB',
+        'Prisma',
+        'Tailwind',
+        'Node.js',
+        'Supabase',
+        'Convex',
+        'Next Auth',
+        'PostgreSQL',
+    ];
+    return (
+        <div className='flex items-center gap-x-2 overflow-x-auto'>
+            {tags.map((item: string, index: number) => (
+                <a href='/' key={index}>
+                    <div
+                        className={cn(
+                            'py-2 px-3 text-sm bg-muted rounded-md flex items-center gap-x-1 hover:bg-slate-200 transition cursor-pointer',
+                            index === 0 && 'bg-[#e6f6fd] text-[#075985]',
+                        )}
+                    >
+                        <div className='truncate text-xs font-semibold'>{item}</div>
+                    </div>
+                </a>
+            ))}
+        </div>
+    );
+}
+
 function PaginationDemo() {
     return (
         <Pagination>
@@ -145,8 +167,7 @@ function PaginationDemo() {
     );
 }
 
-const arr = ['数据库', '操作系统', '前端', '后端', 'python', '编程语言', '网络安全', 'mdx', '默认分类'];
-const Card = () => {
+function Card() {
     const controls = useAnimation();
     const { ref, inView } = useInView();
     useEffect(() => {
@@ -168,36 +189,44 @@ const Card = () => {
             transition={{ duration: 0.5 }}
             className='w-auto h-auto'
         >
-            <div className='w-full h-full group flex flex-col p-1 dark:bg-dark-200  items-center shadow-md ring-dark rounded-md  '>
-                <a className='h-[1/2] w-full  rounded-[5px] overflow-hidden ' href='/posts/前端/Tailwindcss'>
-                    <Image
-                        alt='Tailwindcss'
-                        loading='lazy'
-                        width='1024'
-                        height='1024'
-                        decoding='async'
-                        data-nimg='1'
-                        className='aspect-[4/3] w-full h-full object-center object-cover group-hover:scale-105 transition-all ease duration-300'
-                        src='/1.webp'
-                        style={{ color: 'transparent' }}
-                    />
-                </a>
-                <div className='flex-1  flex flex-col w-full mt-2  max-sm:mt-1'>
-                    <div className='space-x-2 max-sm:space-x-1'>
-                        <a className='capitalize font-semibold sm:text-sm text-[12px] hover:underline text-blue-500'>前端</a>
+            <Link href={'/dashboard/post'} legacyBehavior>
+                <a target='_blank'>
+                    <div className='group hover:bg-[#f1f5f9] transition overflow-hidden rounded-lg h-full flex flex-col shadow'>
+                        <div className='flex-1'>
+                            <div className='relative w-full aspect-video rounded-t-md overflow-hidden border-b'>
+                                <Image
+                                    alt='Tailwindcss'
+                                    loading='lazy'
+                                    width='1024'
+                                    height='1024'
+                                    decoding='async'
+                                    data-nimg='fill'
+                                    sizes='100vw'
+                                    className='duration-700 ease-in-out scale-100 blur-0 grayscale-0 object-cover'
+                                    src='/1.webp'
+                                    style={{ position: 'absolute', height: '100%', width: '100%', inset: 0, color: 'transparent' }}
+                                />
+                            </div>
+                            <div className='flex flex-col pt-2 px-3'>
+                                <div className='text-sm md:text-base font-medium group-hover:text-sky-700 transition line-clamp-2'>
+                                    Prisma &amp; Free Databases (MySQL, Postgres &amp; Mongo)
+                                </div>
+                                <div className='my-3 flex items-center gap-x-2 text-xs'>
+                                    <div className='flex items-center gap-x-1 text-slate-500'>
+                                        <div className='rounded-full flex items-center justify-center bg-sky-100 p-1'>
+                                            <IoBookOutline className='lucide lucide-book-open text-sky-700 h-4 w-4' />
+                                        </div>
+                                        <span>4 Chapters</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='px-3 pb-3'>
+                            <p className='text-sm font-medium text-slate-700'>Free</p>
+                        </div>
                     </div>
-                    <a className='  my-1  ' href='/posts/前端/Tailwindcss'>
-                        <h2 className=' sm:font-semibold capitalize sm:text-lg text-sm font-medium '>
-                            <span className='bg-gradient-to-r from-accent/50 to-accent/50 bg-[length:0px_3px] dark:from-accentDark dark:to-accentDark group-hover:bg-[length:100%_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500'>
-                                Tailwindcss
-                            </span>
-                        </h2>
-                    </a>
-                    <span className='max-sm:h-[13px] capitalize  font-semibold sm:text-base text-[12px] mb-1 mt-auto text-zinc-400 '>
-                        2023-12-09
-                    </span>
-                </div>
-            </div>
+                </a>
+            </Link>
         </motion.div>
     );
-};
+}

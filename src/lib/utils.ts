@@ -15,6 +15,7 @@ export function renderMarkdown(content: string) {
         html: true,
         linkify: true,
         typographer: true,
+        breaks: true,
         highlight: function (str, lang) {
             codeIndex++;
             const copyContent = str.replace(/<\/textarea>/g, '&lt;/textarea>');
@@ -34,7 +35,7 @@ export function renderMarkdown(content: string) {
                     console.log(error);
                 }
             }
-            const preCode = hljs.highlightAuto(str);
+            const preCode = md.utils.escapeHtml(str);
             html = html + preCode;
             return `<pre class="hljs"><code>${html}</code>${linesNum}</pre><textarea class="absolute top-[-9999px]" id="copy${codeIndex}">${copyContent}</textarea>`;
         },

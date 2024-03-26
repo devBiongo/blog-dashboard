@@ -35,7 +35,8 @@ model Article {
   id                  String     @id @default(uuid())
   userId              String     @map("user_id") // 发表用户ID
   articleTitle        String     @map("article_title") // 博文标题
-  articleContent      String     @map("article_content") // 博文内容
+  articleCoverUrl     String     @map("article_cover_url") @db.Text // 博文封面
+  articleContent      String     @map("article_content") @db.Text // 博文内容
   articleViews        Int        @map("article_views") // 浏览量
   articleCommentCount Int        @map("article_comment_count") // 评论总数
   articleDate         DateTime   @default(now()) @map("article_date") // 发表时间
@@ -82,12 +83,3 @@ model Category {
 
   @@map("category")
 }
-
-// model UserFriend {
-//   id              String @id @default(uuid()) // 标识ID
-//   user_id         String // 用户ID
-//   user_friends_id String // 好友ID
-//   user_note       String // 好友备注
-//   user_status     String // 好友状态
-//   User            User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
-// }

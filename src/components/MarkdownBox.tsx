@@ -17,5 +17,9 @@ export default function MarkdownBox({ content }: { content: string }) {
             }, 3000);
         });
     }, []);
-    return <div dangerouslySetInnerHTML={{ __html: renderMarkdown(content) }} />;
+    return (
+        <blockquote>
+            <div dangerouslySetInnerHTML={{ __html: renderMarkdown(content) }} />
+        </blockquote>
+    );
 }
