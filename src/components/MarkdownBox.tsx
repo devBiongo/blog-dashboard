@@ -11,6 +11,7 @@ export default function MarkdownBox({ content }: { content: string }) {
         const clipboard = new Clipboard('.copy-btn');
         clipboard.on('success', (e: any) => {
             e.trigger.innerHTML = '&#10003; copied!';
+            console.log(e);
             setTimeout(() => {
                 e.trigger.innerHTML = 'copy';
             }, 3000);

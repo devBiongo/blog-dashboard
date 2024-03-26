@@ -19,7 +19,7 @@ export function renderMarkdown(content: string) {
             codeIndex++;
             const copyContent = str.replace(/<\/textarea>/g, '&lt;/textarea>');
             let html = `<button
-                            class="copy-btn absolute top-2 right-4 p-3  py-0 bg-[#9999aa] text-white rounded bg-opacity-50 font-serif"
+                            class="copy-btn absolute top-2 right-4 px-3  pb-1 bg-[#9999aa] text-white rounded bg-opacity-50 font-sans text-[14px]"
                             data-clipboard-action="copy"
                             data-clipboard-target="#copy${codeIndex}" >copy</button>`;
             let linesNum = `<span aria-hidden="true" class="line-numbers-rows">${Array(str.split(/\n/).length - 1)
@@ -29,14 +29,14 @@ export function renderMarkdown(content: string) {
                 try {
                     const preCode = hljs.highlight(lang, str, true).value;
                     html = html + preCode;
-                    return `<pre class="hljs"><code class="block px-3">${html}</code>${linesNum}</pre><textarea class="hidden" id="copy${codeIndex}">${copyContent}</textarea>`;
+                    return `<pre class="hljs"><code class="block px-3">${html}</code>${linesNum}</pre><textarea class="absolute top-[-9999px]" id="copy${codeIndex}">${copyContent}</textarea>`;
                 } catch (error) {
                     console.log(error);
                 }
             }
-            const preCode = md.utils.escapeHtml(str);
+            const preCode = hljs.highlightAuto(str);
             html = html + preCode;
-            return `<pre class="hljs"><code>${html}</code>${linesNum}</pre><textarea class="hidden" id="copy${codeIndex}">${copyContent}</textarea>`;
+            return `<pre class="hljs"><code>${html}</code>${linesNum}</pre><textarea class="absolute top-[-9999px]" id="copy${codeIndex}">${copyContent}</textarea>`;
         },
     });
     return md.render(content);
