@@ -6,14 +6,28 @@ import { BsFillEyeFill } from 'react-icons/bs';
 import { AiFillLike } from 'react-icons/ai';
 import { BiSolidBookHeart } from 'react-icons/bi';
 import { GrDocumentUpdate } from 'react-icons/gr';
+import { db } from '@/lib/db';
 
-export default async function Page() {
-    const data = await fs.promises.readFile('./posts/Mysql安装.md', 'utf-8');
+interface Props {
+    params: {
+        postId: string;
+    };
+}
+export default async function Page({ params }: Props) {
+    const article = await db.article.findUnique({
+        where: {
+            id: params.postId,
+        },
+    });
+    if (!article || !article.articleContent) {
+        return <div>没有此文章</div>;
+    }
+
     return (
         <div>
             <div className='flex justify-center'>
                 <div className='w-[1200px] bg-white p-6 rounded-lg border flex flex-col gap-5'>
-                    <p className='text-3xl font-bold'>LaTeX数学公式-详细教程</p>
+                    <p className='text-3xl font-bold'>{article.articleTitle}</p>
                     <div className=' bg-[#f8f8f8] min-h-10 p-2 text-[#999aaa] text-[14px] font-sans'>
                         <ul className='flex gap-4 items-center'>
                             <li className='flex gap-1'>
@@ -62,7 +76,7 @@ export default async function Page() {
                         </ul>
                     </div>
                     <div>
-                        <MarkdownBox content={data} />
+                        <MarkdownBox content={article.articleContent} />
                     </div>
                 </div>
             </div>

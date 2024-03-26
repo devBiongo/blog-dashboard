@@ -1,11 +1,9 @@
 /** @format */
-'use client';
+
 import CarouselDemo from '@/components/CarouseDemo';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { useEffect } from 'react';
+
 import { RxDashboard } from 'react-icons/rx';
 import { RxCalendar } from 'react-icons/rx';
 import {
@@ -17,11 +15,15 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from '@/components/ui/pagination';
-import { IoBookOutline } from 'react-icons/io5';
-import Link from 'next/link';
 
-export default function Page() {
+import { db } from '@/lib/db';
+import Card from '@/components/dashboard/Card';
+
+export default async function Page() {
     const arr = ['数据库', '操作系统', '前端', '后端', 'python', '编程语言', '网络安全', 'mdx', '默认分类'];
+    const articles = await db.article.findMany({
+        where: {},
+    });
     return (
         <div className='flex w-full gap-x-5'>
             {/* -------------------------------------------左边区域------------------------------------------- */}
@@ -36,8 +38,9 @@ export default function Page() {
                 </div>
                 {/* 卡片区 */}
                 <div className='grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 sm:gap-4 gap-2 w-full'>
-                    <Card /> <Card /> <Card /> <Card /> <Card /> <Card />
-                    <Card /> <Card /> <Card /> <Card /> <Card /> <Card />
+                    {articles.map((item, index) => (
+                        <Card key={index} article={item} />
+                    ))}
                 </div>
                 <PaginationDemo />
             </div>
@@ -164,69 +167,5 @@ function PaginationDemo() {
                 </PaginationItem>
             </PaginationContent>
         </Pagination>
-    );
-}
-
-function Card() {
-    const controls = useAnimation();
-    const { ref, inView } = useInView();
-    useEffect(() => {
-        if (inView) {
-            controls.start('visible');
-        } else {
-            controls.start('hidden');
-        }
-    }, [controls, inView]);
-    return (
-        <motion.div
-            ref={ref}
-            initial='hidden'
-            animate={controls}
-            variants={{
-                visible: { opacity: 1, scale: 1 },
-                hidden: { opacity: 0, scale: 0.5 },
-            }}
-            transition={{ duration: 0.5 }}
-            className='w-auto h-auto'
-        >
-            <Link href={'/dashboard/post'} legacyBehavior>
-                <a target='_blank'>
-                    <div className='group hover:bg-[#f1f5f9] transition overflow-hidden rounded-lg h-full flex flex-col shadow'>
-                        <div className='flex-1'>
-                            <div className='relative w-full aspect-video rounded-t-md overflow-hidden border-b'>
-                                <Image
-                                    alt='Tailwindcss'
-                                    loading='lazy'
-                                    width='1024'
-                                    height='1024'
-                                    decoding='async'
-                                    data-nimg='fill'
-                                    sizes='100vw'
-                                    className='duration-700 ease-in-out scale-100 blur-0 grayscale-0 object-cover'
-                                    src='/1.webp'
-                                    style={{ position: 'absolute', height: '100%', width: '100%', inset: 0, color: 'transparent' }}
-                                />
-                            </div>
-                            <div className='flex flex-col pt-2 px-3'>
-                                <div className='text-sm md:text-base font-medium group-hover:text-sky-700 transition line-clamp-2'>
-                                    Prisma &amp; Free Databases (MySQL, Postgres &amp; Mongo)
-                                </div>
-                                <div className='my-3 flex items-center gap-x-2 text-xs'>
-                                    <div className='flex items-center gap-x-1 text-slate-500'>
-                                        <div className='rounded-full flex items-center justify-center bg-sky-100 p-1'>
-                                            <IoBookOutline className='lucide lucide-book-open text-sky-700 h-4 w-4' />
-                                        </div>
-                                        <span>4 Chapters</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='px-3 pb-3'>
-                            <p className='text-sm font-medium text-slate-700'>Free</p>
-                        </div>
-                    </div>
-                </a>
-            </Link>
-        </motion.div>
     );
 }
