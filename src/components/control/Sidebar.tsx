@@ -24,8 +24,8 @@ const Sidebar = () => {
         <div className='h-full flex flex-col bg-white border-r overflow-y-scroll'>
             <div className='flex flex-col w-full flex-1'>
                 <div className='flex flex-col w-full space-y-1.5 p-3'>
-                    <NavButton url='/control/user' label='User' icon={LuUsers2} />
-                    <NavButton url='/control/publish' label='Article' icon={MdOutlineArticle} />
+                    <NavButton url='/control/user' label='用户管理' icon={LuUsers2} />
+                    <NavButton url='/control/article' label='文章管理' icon={MdOutlineArticle} />
                 </div>
             </div>
             <div className='p-3.5'></div>

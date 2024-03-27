@@ -43,7 +43,7 @@ export default function DashboardLayout({
                 <div className='hidden lg:flex pt-[80px] h-full w-72 flex-col fixed inset-y-0 z-[48]'>
                     <Sidebar />
                 </div>
-                <main className='lg:pl-72 pt-[80px] h-full'>{children}</main>
+                <main className='lg:pl-72 pt-[80px] h-full bg-white'>{children}</main>
             </div>
         </div>
     );
