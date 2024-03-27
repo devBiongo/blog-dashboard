@@ -54,7 +54,7 @@ export default function Page() {
     };
 
     return (
-        <div className='w-full flex justify-center p-10'>
+        <div className='max-w-screen-2xl mx-auto  flex justify-center  h-[100vh] py-5'>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <ul className='w-[50vw] bg-white h-[600px] p-8 flex flex-col gap-10'>
                     <li className='flex'>

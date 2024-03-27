@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import { Noto_Sans_SC } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import { TopHeader } from '@/components/header/TopHeader';
 
 const font = Noto_Sans_SC({ subsets: ['latin'] });
 
@@ -20,10 +19,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={cn('dark:bg-[#313338]', font.className, 'bg-[#f5f5f5]')}>
-                <TopHeader />
-                {children}
-            </body>
+            <body className={cn('dark:bg-[#313338]', font.className, 'bg-[#f5f5f5]')}>{children}</body>
         </html>
     );
 }
