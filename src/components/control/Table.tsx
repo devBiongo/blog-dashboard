@@ -24,7 +24,7 @@ const Table = ({ dataSource, columns }: TableProps) => {
                 <thead>
                     <tr className='bg-[#fafafa] border-b border-[#f8f8f9]  font-medium text-md'>
                         {columns.map((column, index) => (
-                            <th key={index} className='p-3 text-left'>
+                            <th key={index} className='p-5 text-left'>
                                 {column.title}
                             </th>
                         ))}

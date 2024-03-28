@@ -16,6 +16,6 @@ export const useModal = create<ModalStore>((set) => ({
         set({ isOpen: true, slot });
     },
     onClose() {
-        set({ isOpen: false });
+        set({ isOpen: false, slot: <></> });
     },
 }));

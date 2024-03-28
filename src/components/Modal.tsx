@@ -38,10 +38,7 @@ export const Modal = () => {
             )}
         >
             <div className='container flex justify-center'>
-                <div
-                    className='relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400 w-full max-w-[700px]'
-                    ref={modalRef}
-                >
+                <div className='relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400 inline-block' ref={modalRef}>
                     <button
                         className='cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600'
                         onClick={() => onClose()}

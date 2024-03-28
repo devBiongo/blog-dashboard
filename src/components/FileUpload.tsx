@@ -5,16 +5,7 @@ import Image from 'next/image';
 const FileUpload = ({ dataUrl, setDataUrl }: { dataUrl: any; setDataUrl: any }) => {
     const inputRef = useRef(null);
 
-    const handleFileChange = (event: any) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setDataUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+    const handleFileChange = (event: any) => {};
 
     const handleClick = () => {
         if (inputRef.current) {
@@ -23,7 +14,7 @@ const FileUpload = ({ dataUrl, setDataUrl }: { dataUrl: any; setDataUrl: any }) 
     };
 
     if (dataUrl) {
-        return <Image src={dataUrl} width={200} height={100} alt='biongo' className='' />;
+        return;
     }
 
     return (

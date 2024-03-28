@@ -5,6 +5,7 @@ import { Noto_Sans_SC } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Modal } from '@/components/Modal';
+import ToasterContext from '@/context/ToasterContext';
 
 const font = Noto_Sans_SC({ subsets: ['latin'] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <html lang='en'>
             <body className={cn('dark:bg-[#313338]', font.className, 'bg-[#f5f5f5]')}>
                 <Modal />
+                <ToasterContext />
                 {children}
             </body>
         </html>

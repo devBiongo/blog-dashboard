@@ -7,6 +7,10 @@ import { Article } from '@prisma/client';
 import Table from './Table';
 import { useModal } from '@/hooks/useModal';
 import TestForm from './forms/TestForm';
+import AddArticle from './forms/add-article';
+import Form1 from './forms/Form1';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 function Tag({ children }: { children: React.ReactNode }) {
     return <span className='border border-[#b7eb8f] px-2 bg-[#f6ffed] text-[#5cb138] rounded-sm'>{children}</span>;
 }
@@ -40,10 +44,19 @@ const columns = [
         title: '操作',
         dataIndex: 'actions',
         key: 'actions',
-        render: (labels: string[]) => (
-            <Link href='/' className='text-[#db5656] underline'>
+        render: (labels: string[], data: any) => (
+            <a
+                className='text-[#db5656] underline cursor-pointer'
+                onClick={() => {
+                    axios.get(`/api/article/${data.key}`).then((res) => {
+                        if (res) {
+                            location.reload();
+                        }
+                    });
+                }}
+            >
                 删除
-            </Link>
+            </a>
         ),
     },
 ];
@@ -71,7 +84,7 @@ const Article = ({ articles }: { articles: Article[] }) => {
                                 hover:text-[#fff] 
                             `}
                     onClick={() => {
-                        onOpen(<TestForm />);
+                        onOpen(<AddArticle />);
                     }}
                 >
                     +<span>新增</span>

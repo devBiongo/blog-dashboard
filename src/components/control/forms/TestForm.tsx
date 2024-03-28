@@ -2,7 +2,7 @@
 
 const TestForm = () => {
     return (
-        <div className=' max-w-[600px]'>
+        <div className='w-[400px] md:w-[600px]'>
             <h1 className='text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4'>Enter Billing Details</h1>
             <label className='text-gray-800 text-sm font-bold leading-tight tracking-normal'>Owner Name</label>
             <input
