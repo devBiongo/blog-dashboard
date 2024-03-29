@@ -6,13 +6,13 @@ import { db } from '@/lib/db';
 
 export async function POST(req: Request) {
     try {
-        const { articleTitle, articleCoverUrl, articleContent } = await req.json();
+        const { articleTitle, articleCoverUrl, articleContentUrl } = await req.json();
         const article = await db.article.create({
             data: {
                 userId: '1',
                 articleTitle,
                 articleCoverUrl,
-                articleContent,
+                articleContentUrl,
                 articleViews: 0,
                 articleCommentCount: 0,
                 articleLikeCount: 0,

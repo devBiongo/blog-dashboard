@@ -7,22 +7,44 @@ import { AiFillLike } from 'react-icons/ai';
 import { BiSolidBookHeart } from 'react-icons/bi';
 import { GrDocumentUpdate } from 'react-icons/gr';
 import { db } from '@/lib/db';
+import { minioClient } from '@/lib/file-uploader';
+import { IncomingMessage } from 'http';
 
 interface Props {
     params: {
         postId: string;
     };
 }
+
+function handleRequest(req: IncomingMessage): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        let data = '';
+
+        req.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        req.on('end', () => {
+            resolve(data);
+        });
+
+        req.on('error', (error) => {
+            reject(error);
+        });
+    });
+}
+
 export default async function Page({ params }: Props) {
     const article = await db.article.findUnique({
         where: {
             id: params.postId,
         },
     });
-    if (!article || !article.articleContent) {
+    if (!article || !article.articleContentUrl) {
         return <div>没有此文章</div>;
     }
 
+    const message = (await minioClient.getObject('blog-dashboard', `/markdown/${article.articleContentUrl}`)) as IncomingMessage;
     return (
         <div>
             <div className='flex justify-center font-sans'>
@@ -76,7 +98,7 @@ export default async function Page({ params }: Props) {
                         </ul>
                     </div>
                     <div>
-                        <MarkdownBox content={article.articleContent} />
+                        <MarkdownBox content={await handleRequest(message)} />
                     </div>
                 </div>
             </div>

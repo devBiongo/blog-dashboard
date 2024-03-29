@@ -44,7 +44,7 @@ export default function Card({ article }: { article: Article }) {
                                     data-nimg='fill'
                                     sizes='100vw'
                                     className='duration-700 ease-in-out scale-100 blur-0 grayscale-0 object-cover'
-                                    src={article.articleCoverUrl}
+                                    src={`/api/image/${article.articleCoverUrl}`}
                                     style={{ position: 'absolute', height: '100%', width: '100%', inset: 0, color: 'transparent' }}
                                 />
                             </div>

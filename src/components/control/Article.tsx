@@ -11,6 +11,7 @@ import AddArticle from './forms/add-article';
 import Form1 from './forms/Form1';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 function Tag({ children }: { children: React.ReactNode }) {
     return <span className='border border-[#b7eb8f] px-2 bg-[#f6ffed] text-[#5cb138] rounded-sm'>{children}</span>;
 }
@@ -20,7 +21,9 @@ const columns = [
         title: '封面',
         dataIndex: 'cover',
         key: 'cover',
-        render: (url: string) => <img src={url} width={80} height={80} alt='bingo' />,
+        render: (url: string) => {
+            return <Image src={`/api/image/${url}`} width={80} height={80} alt='bingo' />;
+        },
     },
     {
         title: '标题',

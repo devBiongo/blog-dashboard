@@ -15,6 +15,7 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { useModal } from '@/hooks/useModal';
 import { useRouter } from 'next/router';
+import { FileInput } from '@/components/FileInput';
 
 const formSchema = z.object({
     articleTitle: z.string().min(3),
@@ -23,6 +24,7 @@ export default function AddArticle() {
     const [fileName, setFileName] = useState<any>('');
     const [dataUrl, setDataUrl] = useState<any>('');
     const [mdContent, setMdContent] = useState<any>('');
+    const [files, setFiles] = useState<{ imageFile: File | null; mdFile: File | null }>({ imageFile: null, mdFile: null });
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -43,12 +45,25 @@ export default function AddArticle() {
             const url = qs.stringifyUrl({
                 url: '/api/article',
             });
-            if (!dataUrl || !mdContent) {
+
+            if (!files.imageFile || !files.mdFile) {
                 toast.error('请上传封面和Markdown');
                 return;
             }
 
-            await axios.post(url, { ...values, articleCoverUrl: dataUrl, articleContent: mdContent });
+            const formData = new FormData();
+            formData.append('file', files.imageFile!);
+            const headers = { 'Content-Type': 'multipart/form-data' };
+            const {
+                data: { fileName: imageName },
+            } = await axios.post('/api/image', formData, { headers });
+
+            formData.set('file', files.mdFile!);
+            const {
+                data: { fileName: mdName },
+            } = await axios.post('/api/markdown', formData, { headers });
+
+            await axios.post(url, { ...values, articleCoverUrl: imageName, articleContentUrl: mdName });
             onClose();
             form.reset();
             location.reload();
@@ -75,6 +90,7 @@ export default function AddArticle() {
                                 if (file) {
                                     const reader = new FileReader();
                                     reader.onload = () => {
+                                        setFiles((state) => ({ ...state, imageFile: file }));
                                         setDataUrl(reader.result);
                                     };
                                     reader.readAsDataURL(file);
@@ -94,6 +110,7 @@ export default function AddArticle() {
                                     reader.onload = () => {
                                         setFileName(file.name);
                                         setMdContent(reader.result);
+                                        setFiles((state) => ({ ...state, mdFile: file }));
                                     };
 
                                     reader.readAsText(file);
@@ -109,17 +126,6 @@ export default function AddArticle() {
                     </li>
                 </ul>
             </form>
-        </div>
-    );
-}
-
-function FileInput({ onChange, accept }: { onChange: (e: ChangeEvent<HTMLInputElement>) => void; accept: string }) {
-    return (
-        <div className='flex text-gray-500 '>
-            <label className='mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7'>
-                <HiOutlinePaperClip />
-                <input hidden type='file' onChange={onChange} accept={accept} />
-            </label>
         </div>
     );
 }
