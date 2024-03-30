@@ -30,7 +30,7 @@ export default async function Page() {
             <div className='flex flex-col overflow-hidden flex-1  gap-y-5'>
                 {/* 轮播图 */}
                 <div>
-                    <CarouselDemo />
+                    <CarouselDemo articles={articles} />
                 </div>
                 {/* 导航栏 */}
                 <div className=' shadow bg-white flex items-center p-2 rounded'>

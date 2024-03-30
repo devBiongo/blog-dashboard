@@ -5,8 +5,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Article } from '@prisma/client';
 
-function CarouselDemo() {
+function CarouselDemo({ articles }: { articles: Article[] }) {
     return (
         <>
             <Swiper
@@ -18,12 +19,12 @@ function CarouselDemo() {
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
             >
-                {[1, 2, 3, 4].map((item: number, index: number) => (
+                {articles.slice(0, 4).map((item, index) => (
                     <SwiperSlide
                         key={index}
                         className='w-full text-white px-10 py-10 '
                         style={{
-                            backgroundImage: "url('/2.webp')",
+                            backgroundImage: `url('/api/image/${item.articleCoverUrl}')`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             height: 500,
