@@ -50,7 +50,7 @@ const components: { title: string; href: string; description: string }[] = [
     },
 ];
 
-export function NavigationMenuDemo() {
+export function BlogNavigationMenu() {
     return (
         <NavigationMenu className='max-md:hidden'>
             <NavigationMenuList>
@@ -98,8 +98,8 @@ export function NavigationMenuDemo() {
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <Link href='/docs' legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>Documentation</NavigationMenuLink>
+                    <Link href='/control/article' legacyBehavior passHref>
+                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>console</NavigationMenuLink>
                     </Link>
                 </NavigationMenuItem>
             </NavigationMenuList>

@@ -24,8 +24,6 @@ interface ServerSearchProps {
 
 export const SearchButton = ({ data }: ServerSearchProps) => {
     const [open, setOpen] = useState(false);
-    const router = useRouter();
-    const params = useParams();
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {

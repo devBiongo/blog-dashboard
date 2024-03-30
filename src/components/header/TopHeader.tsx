@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { SearchButton } from '../SearchButton';
-import { NavigationMenuDemo } from './components/NavigationMenu';
+import { BlogNavigationMenu } from './components/BlogNavigationMenu';
 import { AiOutlineMenu } from 'react-icons/ai';
 
 /** @format */
@@ -13,7 +13,7 @@ export const TopHeader = () => {
                 ビンゴのＢＬＯＧ
             </Link>
             <AiOutlineMenu className='lg:hidden mx-3 text-xl' />
-            <NavigationMenuDemo />
+            <BlogNavigationMenu />
             <SearchButton data={{} as any} />
         </div>
     );

@@ -1,6 +1,6 @@
 /** @format */
 
-import CarouselDemo from '@/components/CarouseDemo';
+import CarouselDemo from '@/components/BlogCarouse';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -18,11 +18,21 @@ import {
 
 import { db } from '@/lib/db';
 import Card from '@/components/dashboard/Card';
+import { ImGithub } from 'react-icons/im';
+import { FaBilibili } from 'react-icons/fa6';
+import { SiGmail } from 'react-icons/si';
+import Link from 'next/link';
+import { Tooltip } from '@/components/mui/index';
+import { IoBookOutline } from 'react-icons/io5';
+import { IoBookmarksOutline } from 'react-icons/io5';
+import BlogCarousel from '@/components/BlogCarouse';
 
 export default async function Page() {
     const arr = ['数据库', '操作系统', '前端', '后端', 'python', '编程语言', '网络安全', 'mdx', '默认分类'];
     const articles = await db.article.findMany({
-        where: {},
+        orderBy: {
+            articleDate: 'desc',
+        },
     });
     return (
         <div className='flex w-full gap-x-5'>
@@ -30,7 +40,7 @@ export default async function Page() {
             <div className='flex flex-col overflow-hidden flex-1  gap-y-5'>
                 {/* 轮播图 */}
                 <div>
-                    <CarouselDemo articles={articles} />
+                    <BlogCarousel articles={articles} />
                 </div>
                 {/* 导航栏 */}
                 <div className=' shadow bg-white flex items-center p-2 rounded'>
@@ -42,7 +52,6 @@ export default async function Page() {
                         <Card key={index} article={item} />
                     ))}
                 </div>
-                <PaginationDemo />
             </div>
             {/* -------------------------------------------右边区域------------------------------------------- */}
             <div className=' max-md:hidden w-[350px] max-sm:mt-5 space-y-5 dark:text-white/80'>
@@ -50,10 +59,29 @@ export default async function Page() {
                     <Image src={'/131579909.jpg'} width={150} height={150} alt='biongo' className=' rounded-[50%] shadow ' />
                     <p>BionGo</p>
                     <div className='flex gap-3'></div>
-                    <div className='flex justify-between gap-3'>
-                        <p>文章</p>
-                        <p>分类</p>
-                        <p>标签</p>
+                    <div className='flex justify-between gap-8 text-2xl'>
+                        <Link href={'https://space.bilibili.com/2042998773?spm_id_from=333.1296.0.0'}>
+                            <FaBilibili className='hover:scale-125 text-[#1e88e5]  transition duration-90 cursor-pointer' />
+                        </Link>
+                        <Link href={'https://github.com/devBiongo'}>
+                            <ImGithub className='hover:scale-125  transition duration-90 cursor-pointer' />
+                        </Link>
+                        <Tooltip content='biongo.dev@gmail.com'>
+                            <SiGmail className='hover:scale-125 text-[#ea4335]  transition duration-90 cursor-pointer' />
+                        </Tooltip>
+                    </div>
+                    <div className='flex gap-8 py-5 '>
+                        <div className='flex gap-1 items-center'>
+                            <IoBookOutline className='transform translate-y-[2px] text-xl text-[#227cae]' />
+                            <span>文章</span>
+                            <span>{articles.length}</span>
+                        </div>
+
+                        <div className='flex gap-1 items-center'>
+                            <IoBookmarksOutline className='transform translate-y-[2px] text-xl text-[#227cae]' />
+                            <span>标签</span>
+                            <span>16</span>
+                        </div>
                     </div>
                 </div>
                 <div className='w-full bg-white mb-1 0 flex flex-col items-center gap-3  p-5 shadow  rounded-md bg-light'>
@@ -66,7 +94,7 @@ export default async function Page() {
                     </div>
                     <ul className=' w-full flex flex-col gap-1'>
                         {arr.map((item: string, index: number) => (
-                            <li key={index} className=' hover:bg-slate-200 py-2 px-3 rounded transition'>
+                            <li key={index} className=' hover:bg-[#e2e8f0] py-2 px-3 rounded transition'>
                                 <a href=''>{item}</a>
                             </li>
                         ))}
@@ -126,10 +154,10 @@ function Tags() {
     return (
         <div className='flex items-center gap-x-2 overflow-x-auto'>
             {tags.map((item: string, index: number) => (
-                <a href='/' key={index}>
+                <a href='/dashboard' key={index}>
                     <div
                         className={cn(
-                            'py-2 px-3 text-sm bg-muted rounded-md flex items-center gap-x-1 hover:bg-slate-200 transition cursor-pointer',
+                            'py-2 px-3 text-sm bg-muted rounded-md flex items-center gap-x-1 hover:bg-[#e2e8f0] transition cursor-pointer',
                             index === 0 && 'bg-[#e6f6fd] text-[#075985]',
                         )}
                     >
