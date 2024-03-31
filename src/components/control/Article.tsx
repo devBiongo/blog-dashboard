@@ -12,6 +12,7 @@ import Form1 from './forms/Form1';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import ArticleTable from './ArticleTable';
 function Tag({ children }: { children: React.ReactNode }) {
     return <span className='border border-[#b7eb8f] px-2 bg-[#f6ffed] text-[#5cb138] rounded-sm'>{children}</span>;
 }
@@ -94,7 +95,7 @@ const Article = ({ articles }: { articles: Article[] }) => {
                 </button>
             </div>
 
-            <Table dataSource={dataSource} columns={columns} />
+            <ArticleTable articles={articles} />
         </div>
     );
 };

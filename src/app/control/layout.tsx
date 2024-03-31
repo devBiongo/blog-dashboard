@@ -1,28 +1,28 @@
 /** @format */
 
 import Sidebar from '@/components/control/Sidebar';
-import BlogAvatar from '@/components/header/components/BlogAvatar';
+import BlogAvatar from '@/components/dashboard/BlogAvatar';
+import UserAvatar from '@/components/dashboard/UserAvatar';
+import { initUser } from '@/lib/initializeUser';
 
-import { AiOutlineMenu } from 'react-icons/ai';
-
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const user = await initUser();
+    if (!user) {
+        return <div>error</div>;
+    }
     return (
         <div className='flex flex-col h-full'>
             <div className='flex-1'>
                 <div className='h-[80px] fixed inset-y-0 w-full z-[49]'>
                     <div className='p-4 gap-x-4 h-full flex items-center bg-white border-b'>
-                        <div className='p-1 gap-x-4 h-full flex items-center bg-white'>
+                        <div className='p-1 gap-x-4 h-full flex justify-between items-center bg-white w-full'>
                             {/* 个人简介 */}
-
                             <BlogAvatar />
-                            {/* trigger */}
-                            <button className='inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 lg:hidden pr-4 hover:opacity-75 transition'>
-                                <AiOutlineMenu className='text-[1.3rem] text-black' />
-                            </button>
+                            <UserAvatar user={user} />
                         </div>
                     </div>
                 </div>

@@ -4,8 +4,10 @@ import { minioClient } from '@/lib/file-uploader';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import mime from 'mime';
+import { judge } from '@/lib/judge';
 
 export async function POST(req: Request) {
+    const user = await judge();
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
     if (!file) {
@@ -24,6 +26,6 @@ export async function POST(req: Request) {
         return NextResponse.json({ fileName });
     } catch (error) {
         console.log('CHANNELS_POST', error);
-        return new NextResponse('Internal Error', { status: 500 });
+        return new NextResponse(String(error), { status: 500 });
     }
 }
