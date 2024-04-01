@@ -66,9 +66,15 @@ export default async function Page() {
                         <Link href={'https://github.com/devBiongo'}>
                             <ImGithub className='hover:scale-125  transition duration-90 cursor-pointer' />
                         </Link>
-                        <Tooltip content='biongo.dev@gmail.com'>
-                            <SiGmail className='hover:scale-125 text-[#ea4335]  transition duration-90 cursor-pointer' />
-                        </Tooltip>
+                        <Link href={'https://blog.csdn.net/Idalan?type=blog'}>
+                            <Image
+                                src={'/csdn.png'}
+                                width={26}
+                                height={26}
+                                alt='biongo'
+                                className=' rounded-[50%] shadow hover:scale-125  transition duration-90 cursor-pointer'
+                            />
+                        </Link>
                     </div>
                     <div className='flex gap-8 py-5 '>
                         <div className='flex gap-1 items-center'>

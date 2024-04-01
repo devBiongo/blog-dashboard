@@ -8,6 +8,7 @@ import { IoBookOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { Article } from '@prisma/client';
 import { AiOutlineLike } from 'react-icons/ai';
+import { GoEye } from 'react-icons/go';
 
 export default function Card({ article }: { article: Article }) {
     const controls = useAnimation();
@@ -56,21 +57,15 @@ export default function Card({ article }: { article: Article }) {
                                 <div className='my-3 flex items-center gap-x-2 text-xs'>
                                     <div className='flex items-center gap-x-1 text-slate-500'>
                                         <div className='rounded-full flex items-center justify-center  p-1'>
-                                            <IoBookOutline className=' text-[#0369a1] h-4 w-4' />
+                                            <GoEye className=' text-[#0369a1] h-4 w-4' />
                                         </div>
-                                        <span className='group-hover:text-[#0369a1]'>4 Chapters</span>
+                                        <span className='group-hover:text-[#0369a1]'>{article.articleViews} views</span>
                                     </div>
                                     <div className='flex items-center gap-x-1 text-slate-500'>
                                         <div className='rounded-full flex items-center justify-center bg-sky-100 p-1'>
                                             <AiOutlineLike className='text-[#0369a1] h-4 w-4' />
                                         </div>
-                                        <span className='group-hover:text-[#0369a1]'>4 like</span>
-                                    </div>
-                                    <div className='flex items-center gap-x-1 text-slate-500'>
-                                        <div className='rounded-full flex items-center justify-center bg-sky-100 p-1'>
-                                            <IoBookOutline className='text-[#0369a1] h-4 w-4' />
-                                        </div>
-                                        <span className='group-hover:text-[#0369a1]'>4 Chapters</span>
+                                        <span className='group-hover:text-[#0369a1]'>{article.articleLikeCount} like</span>
                                     </div>
                                 </div>
                             </div>

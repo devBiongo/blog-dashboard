@@ -43,6 +43,14 @@ export default async function Page({ params }: Props) {
     if (!article || !article.articleContentUrl) {
         return <div>没有此文章</div>;
     }
+    await db.article.update({
+        data: {
+            articleViews: article.articleViews + 1,
+        },
+        where: {
+            id: article.id,
+        },
+    });
 
     const message = (await minioClient.getObject('blog-dashboard', `/markdown/${article.articleContentUrl}`)) as IncomingMessage;
     return (
@@ -61,7 +69,7 @@ export default async function Page({ params }: Props) {
                             </li>
                             <li className='flex gap-1'>
                                 <a className='flex items-center gap-1 hover:text-[#fc5531] hover:cursor-pointer'>
-                                    <AiFillLike className='text-[16px] ' />
+                                    <AiFillLike className='text-[16px]' />
                                     <span>点赞数</span>
                                 </a>
                                 <span>6</span>

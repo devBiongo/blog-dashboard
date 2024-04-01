@@ -30,7 +30,6 @@ const Sidebar = () => {
             <nav className='flex flex-col gap-1 min-w-[240px] p-2 font-sans text-base font-normal text-gray-700'>
                 <NavButton url='/control/user' label='用户管理' icon={LuUsers2} />
                 <NavButton url='/control/article' label='文章管理' icon={MdOutlineArticle} />
-                <NavButton url='/control/comps' label='组件一览' icon={MdOutlineArticle} />
             </nav>
         </div>
     );
