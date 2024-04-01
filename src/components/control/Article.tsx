@@ -88,7 +88,11 @@ const Article = ({ articles }: { articles: Article[] }) => {
                                 hover:text-[#fff] 
                             `}
                     onClick={() => {
-                        onOpen(<AddArticle />);
+                        onOpen({
+                            slot: <AddArticle />,
+                            title: '上传博客',
+                            width: 700,
+                        });
                     }}
                 >
                     +<span>新增</span>

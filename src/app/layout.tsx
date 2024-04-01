@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { Modal } from '@/components/Modal';
 import ToasterContext from '@/context/ToasterContext';
 import { ClerkProvider } from '@clerk/nextjs';
+import { ShadcnModal } from '@/components/ShadcnModal';
 
 const font = Noto_Sans_SC({ subsets: ['latin'] });
 
@@ -24,7 +25,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang='en'>
                 <body className={cn('dark:bg-[#313338]', font.className, 'bg-[#f5f5f5]')}>
-                    <Modal />
+                    <ShadcnModal />
                     <ToasterContext />
                     {children}
                 </body>

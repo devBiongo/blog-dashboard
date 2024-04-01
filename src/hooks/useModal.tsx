@@ -5,17 +5,23 @@ import { create } from 'zustand';
 interface ModalStore {
     slot: React.ReactNode;
     isOpen: boolean;
-    onOpen: (slot: React.ReactNode) => void;
+    onOpen: (props: { width?: number; title: string; description?: string; slot: React.ReactNode }) => void;
     onClose: () => void;
+    width: number;
+    title: string;
+    description: string;
 }
 
 export const useModal = create<ModalStore>((set) => ({
-    slot: undefined,
+    slot: <></>,
     isOpen: false,
-    onOpen(slot) {
-        set({ isOpen: true, slot });
+    width: 500,
+    title: '',
+    description: '',
+    onOpen(props) {
+        set({ ...props, isOpen: true });
     },
     onClose() {
-        set({ isOpen: false, slot: <></> });
+        set({ isOpen: false, slot: <></>, width: 500, title: '', description: '' });
     },
 }));

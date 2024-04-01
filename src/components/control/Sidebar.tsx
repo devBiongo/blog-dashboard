@@ -20,14 +20,6 @@ const NavButton = ({ url, label, icon: Icon }: any) => {
                 <Icon className=' h-5 w-5 mr-2 text-primary animate-spin-once' />
             </div>
             {label}
-            <div className='grid place-items-center ml-auto justify-self-end'>
-                <div
-                    className='relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-blue-500/20 text-blue-900 py-1 px-2 text-xs rounded-full'
-                    style={{ opacity: 1 }}
-                >
-                    <span className=''>1</span>
-                </div>
-            </div>
         </button>
     );
 };

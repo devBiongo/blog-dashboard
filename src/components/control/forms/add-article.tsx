@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 import { useModal } from '@/hooks/useModal';
 import { useRouter } from 'next/router';
 import { FileInput } from '@/components/FileInput';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const formSchema = z.object({
     articleTitle: z.string().min(3),
@@ -73,12 +74,12 @@ export default function AddArticle() {
     };
 
     return (
-        <div className='w-[600px]  flex justify-center p-1'>
+        <div className=' flex justify-center p-1'>
             <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
                 <ul className=' bg-white flex flex-col gap-10 w-full py-4'>
                     <li className='flex'>
                         <Label required title={'文章标题'} />
-                        <Input placeholder='title' {...register('articleTitle')} className='outline-none' />
+                        <Input placeholder='title' {...register('articleTitle')} className='outline-none' required disabled={isLoading} />
                     </li>
 
                     <li className='flex items-start'>
@@ -120,7 +121,12 @@ export default function AddArticle() {
                         {fileName}
                     </li>
                     <li className='flex justify-end'>
-                        <Button className=' bg-[#fc5531] hover:bg-[#fc1944] rounded-lg' type='submit' disabled={isLoading}>
+                        {isLoading && (
+                            <div className='flex items-center mr-2'>
+                                <div className='h-5 w-5 border-t-transparent border-solid animate-spin rounded-full border-black border-[3px]'></div>
+                            </div>
+                        )}
+                        <Button type='submit' disabled={isLoading}>
                             Publish
                         </Button>
                     </li>
@@ -133,7 +139,6 @@ export default function AddArticle() {
 function Label({ title, required }: { title: string; required?: boolean }) {
     return (
         <div className='flex items-center gap-1 font-sans relative min-w-[100px]'>
-            {required && <span className='absolute left-[-1rem] top-[8px] text-red-500 text-2xl'>*</span>}
             <span>{title}</span>
             <GoQuestion className='text-[#5e5c5c] ' />
         </div>
