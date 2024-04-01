@@ -5,14 +5,13 @@
 import { useModal } from '@/hooks/useModal';
 import AddArticleForm from './forms/AddArticleForm';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Article } from '@prisma/client';
 import axios from 'axios';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { CiRead } from 'react-icons/ci';
 import Link from 'next/link';
 
-const Article = ({ articles, isAdmin }: { articles: Article[]; isAdmin: boolean }) => {
+const Article = ({ articles, isAdmin }: { articles: any[]; isAdmin: boolean }) => {
     const { onOpen } = useModal();
     return (
         <div className='p-10'>
@@ -62,7 +61,7 @@ const Article = ({ articles, isAdmin }: { articles: Article[]; isAdmin: boolean 
                             <TableCell>{item.articleLikeCount}</TableCell>
                             <TableCell>{item.articleViews}</TableCell>
                             <TableCell>{item.articleDate.toDateString()}</TableCell>
-                            <TableCell>{(item as any).User.userNickname}</TableCell>
+                            <TableCell>{'biongo'}</TableCell>
                             <TableCell>
                                 <div className='flex gap-2'>
                                     <div className='text-[#6666d6] cursor-pointer flex gap-1 items-center'>
