@@ -48,7 +48,7 @@ export default async function Page() {
                 </div>
                 {/* 卡片区 */}
                 <div className='grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 sm:gap-4 gap-2 w-full'>
-                    {articles.map((item, index) => (
+                    {articles.map((item: any, index: number) => (
                         <Card key={index} article={item} />
                     ))}
                 </div>
@@ -56,7 +56,7 @@ export default async function Page() {
             {/* -------------------------------------------右边区域------------------------------------------- */}
             <div className=' max-md:hidden w-[350px] max-sm:mt-5 space-y-5 dark:text-white/80'>
                 <div className='w-full bg-white h-[375px] mb-1 0 flex flex-col items-center gap-3  p-5 shadow  rounded-md bg-light'>
-                    <Image src={'/131579909.jpg'} width={150} height={150} alt='biongo' className=' rounded-[50%] shadow ' />
+                    <Image src={'/favicon.ico'} width={150} height={150} alt='biongo' className=' rounded-[50%] shadow ' />
                     <p>BionGo</p>
                     <div className='flex gap-3'></div>
                     <div className='flex justify-between gap-8 text-2xl'>
